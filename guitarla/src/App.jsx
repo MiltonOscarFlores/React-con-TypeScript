@@ -5,10 +5,35 @@ import { db } from "./data/db";
 
 function App() {
   const [data, setData] = useState(db);
+  const [cart, setCart] = useState([]);
+
+  const addToCart = (item) => {
+    const itemExists = cart.findIndex((guitar) => {
+      return guitar.id === item.id;
+    });
+    // si existe en el carrito
+    if (itemExists >= 0) {
+      console.log("Ya existe Maquinola...");
+      const updatedCart = [...cart];
+      updatedCart[itemExists].quantity++;
+      setCart(updatedCart);
+    } else {
+      item.quantity = 1;
+      setCart((prevCart) => [...prevCart, item]);
+      console.log("No existia, Agregado pápu");
+    }
+  };
+
+  const removeFromCart = (id) => {
+    return setCart((prevCart) => prevCart.filter((guitar) => guitar.id !== id));
+  };
 
   return (
     <>
-      <Header />
+      <Header
+        cart={cart}
+        removeFromCart={removeFromCart}
+      />
 
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
@@ -19,6 +44,8 @@ function App() {
               <Guitar
                 key={guitar.id}
                 guitar={guitar}
+                setCart={setCart}
+                addToCart={addToCart}
               />
             );
           })}
