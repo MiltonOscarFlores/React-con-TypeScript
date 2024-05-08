@@ -2,7 +2,13 @@
 import React from "react";
 import { useMemo } from "react";
 
-const Header = ({ cart, removeFromCart }) => {
+const Header = ({
+  cart,
+  removeFromCart,
+  increaseQuantity,
+  decreaseQuantity,
+  clearCart,
+}) => {
   // State derivado
   const isEmpty = useMemo(() => {
     return cart.length === 0;
@@ -19,7 +25,7 @@ const Header = ({ cart, removeFromCart }) => {
             <a href="index.html">
               <img
                 className="img-fluid"
-                src="./public/img/logo.svg"
+                src="/img/logo.svg"
                 alt="imagen logo"
               />
             </a>
@@ -28,7 +34,7 @@ const Header = ({ cart, removeFromCart }) => {
             <div className="carrito">
               <img
                 className="img-fluid"
-                src="./public/img/carrito.png"
+                src="/img/carrito.png"
                 alt="imagen carrito"
               />
 
@@ -57,7 +63,7 @@ const Header = ({ cart, removeFromCart }) => {
                               <td>
                                 <img
                                   className="img-fluid"
-                                  src={`./public/img/${guitar.image}.jpg`}
+                                  src={`/img/${guitar.image}.jpg`}
                                   alt="imagen guitarra"
                                 />
                               </td>
@@ -67,6 +73,7 @@ const Header = ({ cart, removeFromCart }) => {
                                 <button
                                   type="button"
                                   className="btn btn-dark"
+                                  onClick={() => decreaseQuantity(guitar.id)}
                                 >
                                   -
                                 </button>
@@ -74,6 +81,7 @@ const Header = ({ cart, removeFromCart }) => {
                                 <button
                                   type="button"
                                   className="btn btn-dark"
+                                  onClick={() => increaseQuantity(guitar.id)}
                                 >
                                   +
                                 </button>
@@ -97,7 +105,10 @@ const Header = ({ cart, removeFromCart }) => {
                     </p>
                   </>
                 )}
-                <button className="btn btn-dark w-100 mt-3 p-2">
+                <button
+                  className="btn btn-dark w-100 mt-3 p-2"
+                  onClick={clearCart}
+                >
                   Vaciar Carrito
                 </button>
               </div>
