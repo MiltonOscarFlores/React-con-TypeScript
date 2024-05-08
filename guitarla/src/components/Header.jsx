@@ -1,22 +1,12 @@
-// eslint-disable-next-line no-unused-vars
-import React from "react";
-import { useMemo } from "react";
-
 const Header = ({
   cart,
   removeFromCart,
   increaseQuantity,
   decreaseQuantity,
   clearCart,
+  isEmpty,
+  cartTotal,
 }) => {
-  // State derivado
-  const isEmpty = useMemo(() => {
-    return cart.length === 0;
-  });
-  const cartTotal = useMemo(() => {
-    return cart.reduce((total, item) => total + item.quantity * item.price, 0);
-  });
-
   return (
     <header className="py-5 header">
       <div className="container-xl">
